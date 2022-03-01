@@ -17,7 +17,7 @@ namespace CSH_seminarski_rad_Danijel_Krpes
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new DistanceCalculatorForm());
         }
     }
 }

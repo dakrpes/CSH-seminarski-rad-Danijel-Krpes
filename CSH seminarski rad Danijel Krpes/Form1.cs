@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CSH_seminarski_rad_Danijel_Krpes
 {
-    public partial class Form1 : Form
+    public partial class DistanceCalculatorForm : Form
     {
-        public Form1()
+        public DistanceCalculatorForm()
         {
             InitializeComponent();
 
@@ -28,6 +28,12 @@ namespace CSH_seminarski_rad_Danijel_Krpes
         private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void ClearInputButton_Click(object sender, EventArgs e)
+        {
+            InputTextbox.Clear();
+            MeasuringUnits.SelectedIndex = -1;
         }
     }
 }
