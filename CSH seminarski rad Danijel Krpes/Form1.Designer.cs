@@ -37,12 +37,14 @@ namespace CSH_seminarski_rad_Danijel_Krpes
             this.ResultsMeasuringUnitLabel = new System.Windows.Forms.Label();
             this.ClearInputButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
+            this.InputInstructionsLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // InputTextbox
             // 
-            this.InputTextbox.Location = new System.Drawing.Point(27, 52);
+            this.InputTextbox.Location = new System.Drawing.Point(27, 76);
             this.InputTextbox.Name = "InputTextbox";
+            this.InputTextbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.InputTextbox.Size = new System.Drawing.Size(626, 27);
             this.InputTextbox.TabIndex = 0;
             // 
@@ -50,10 +52,11 @@ namespace CSH_seminarski_rad_Danijel_Krpes
             // 
             this.MeasuringUnits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.MeasuringUnits.FormattingEnabled = true;
-            this.MeasuringUnits.Location = new System.Drawing.Point(193, 102);
+            this.MeasuringUnits.Location = new System.Drawing.Point(193, 127);
             this.MeasuringUnits.Name = "MeasuringUnits";
             this.MeasuringUnits.Size = new System.Drawing.Size(80, 28);
             this.MeasuringUnits.TabIndex = 1;
+            this.MeasuringUnits.SelectionChangeCommitted += new System.EventHandler(this.MeasuringUnits_SelectionChangeCommitted);
             // 
             // InstructionsLabel
             // 
@@ -67,7 +70,7 @@ namespace CSH_seminarski_rad_Danijel_Krpes
             // 
             // ResultTextbox
             // 
-            this.ResultTextbox.Location = new System.Drawing.Point(85, 151);
+            this.ResultTextbox.Location = new System.Drawing.Point(85, 171);
             this.ResultTextbox.Name = "ResultTextbox";
             this.ResultTextbox.ReadOnly = true;
             this.ResultTextbox.Size = new System.Drawing.Size(568, 27);
@@ -76,7 +79,7 @@ namespace CSH_seminarski_rad_Danijel_Krpes
             // ResultLabel
             // 
             this.ResultLabel.AutoSize = true;
-            this.ResultLabel.Location = new System.Drawing.Point(27, 154);
+            this.ResultLabel.Location = new System.Drawing.Point(27, 174);
             this.ResultLabel.Name = "ResultLabel";
             this.ResultLabel.Size = new System.Drawing.Size(52, 20);
             this.ResultLabel.TabIndex = 4;
@@ -85,7 +88,7 @@ namespace CSH_seminarski_rad_Danijel_Krpes
             // ResultsMeasuringUnitLabel
             // 
             this.ResultsMeasuringUnitLabel.AutoSize = true;
-            this.ResultsMeasuringUnitLabel.Location = new System.Drawing.Point(27, 105);
+            this.ResultsMeasuringUnitLabel.Location = new System.Drawing.Point(27, 130);
             this.ResultsMeasuringUnitLabel.Name = "ResultsMeasuringUnitLabel";
             this.ResultsMeasuringUnitLabel.Size = new System.Drawing.Size(160, 20);
             this.ResultsMeasuringUnitLabel.TabIndex = 5;
@@ -93,7 +96,7 @@ namespace CSH_seminarski_rad_Danijel_Krpes
             // 
             // ClearInputButton
             // 
-            this.ClearInputButton.Location = new System.Drawing.Point(27, 209);
+            this.ClearInputButton.Location = new System.Drawing.Point(27, 220);
             this.ClearInputButton.Name = "ClearInputButton";
             this.ClearInputButton.Size = new System.Drawing.Size(104, 29);
             this.ClearInputButton.TabIndex = 6;
@@ -103,7 +106,7 @@ namespace CSH_seminarski_rad_Danijel_Krpes
             // 
             // ExitButton
             // 
-            this.ExitButton.Location = new System.Drawing.Point(559, 209);
+            this.ExitButton.Location = new System.Drawing.Point(559, 220);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(94, 29);
             this.ExitButton.TabIndex = 7;
@@ -111,11 +114,23 @@ namespace CSH_seminarski_rad_Danijel_Krpes
             this.ExitButton.UseVisualStyleBackColor = true;
             this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
+            // InputInstructionsLabel
+            // 
+            this.InputInstructionsLabel.AutoSize = true;
+            this.InputInstructionsLabel.Location = new System.Drawing.Point(27, 53);
+            this.InputInstructionsLabel.Name = "InputInstructionsLabel";
+            this.InputInstructionsLabel.Size = new System.Drawing.Size(575, 20);
+            this.InputInstructionsLabel.TabIndex = 8;
+            this.InputInstructionsLabel.Text = "Please insert blank space between each parameter. For example: 14 km - 5 km + 90 " +
+    "m";
+            // 
             // DistanceCalculatorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(682, 261);
+            this.Controls.Add(this.InputInstructionsLabel);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.ClearInputButton);
             this.Controls.Add(this.ResultsMeasuringUnitLabel);
@@ -141,6 +156,7 @@ namespace CSH_seminarski_rad_Danijel_Krpes
         private System.Windows.Forms.Label ResultsMeasuringUnitLabel;
         private System.Windows.Forms.Button ClearInputButton;
         private System.Windows.Forms.Button ExitButton;
+        private System.Windows.Forms.Label InputInstructionsLabel;
     }
 }
 

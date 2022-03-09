@@ -33,7 +33,43 @@ namespace CSH_seminarski_rad_Danijel_Krpes
         private void ClearInputButton_Click(object sender, EventArgs e)
         {
             InputTextbox.Clear();
-            MeasuringUnits.SelectedIndex = -1;
+            MeasuringUnits.SelectedIndex = -1; //Default value (empty)
+        }
+
+        private void MeasuringUnits_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            string[] inputParameters = InputTextbox.Text.ToString().Split(' ');
+            List<int> values = new();
+            List<string> measuringUnits = new();
+            List<string> operators = new();
+
+            for (int i = 0; i < inputParameters.Length; i += 3)
+            {
+                values.Add(int.Parse(inputParameters[i]));
+            }
+
+            for (int i = 1; i < inputParameters.Length; i += 3)
+            {
+                measuringUnits.Add(inputParameters[i]);
+            }
+
+            for (int i = 2; i < inputParameters.Length; i += 3)
+            {
+                operators.Add(inputParameters[i]);
+            }
+
         }
     }
 }
+
+
+// 14 km + 79 m - 5 mm
+/*0  14  
+ *1  km
+ *2  +
+ *3  79
+ *4  m
+ *5  -
+ *6  5
+ *7  mm
+ */
