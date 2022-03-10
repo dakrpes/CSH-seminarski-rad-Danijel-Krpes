@@ -38,14 +38,20 @@ namespace CSH_seminarski_rad_Danijel_Krpes
 
         private void MeasuringUnits_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            Calculate();
+        }
+
+        private void Calculate()
+        {
             string[] inputParameters = InputTextbox.Text.ToString().Split(' ');
-            List<int> values = new();
+            List<double> values = new();
             List<string> measuringUnits = new();
             List<string> operators = new();
+            double meters = 0;
 
             for (int i = 0; i < inputParameters.Length; i += 3)
             {
-                values.Add(int.Parse(inputParameters[i]));
+                values.Add(double.Parse(inputParameters[i]));
             }
 
             for (int i = 1; i < inputParameters.Length; i += 3)
@@ -56,6 +62,27 @@ namespace CSH_seminarski_rad_Danijel_Krpes
             for (int i = 2; i < inputParameters.Length; i += 3)
             {
                 operators.Add(inputParameters[i]);
+            }
+
+            for(int i = 0; i < values.Count; i++)
+            {
+                switch (measuringUnits.ElementAt(i))
+                {
+                    case "km":
+                        values[i] *= 1000;
+                        break;
+                    case "m":
+                        meters = values.ElementAt(i);
+                        break;
+                    case "cm":
+                        meters = values.ElementAt(i) / 100;
+                        break;
+                    case "mm":
+                        meters = values.ElementAt(i) / 1000;
+                        break;
+                }
+                    
+
             }
 
         }
