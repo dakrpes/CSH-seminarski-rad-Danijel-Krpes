@@ -34,6 +34,7 @@ namespace CSH_seminarski_rad_Danijel_Krpes
         {
             InputTextbox.Clear();
             MeasuringUnits.SelectedIndex = -1; //Default value (empty)
+            ResultTextbox.Text = "";
         }
 
         private void MeasuringUnits_SelectionChangeCommitted(object sender, EventArgs e)
@@ -47,7 +48,7 @@ namespace CSH_seminarski_rad_Danijel_Krpes
             List<double> values = new();
             List<string> measuringUnits = new();
             List<string> operators = new();
-            double meters = 0;
+            double result = 0;
 
             for (int i = 0; i < inputParameters.Length; i += 3)
             {
@@ -64,33 +65,65 @@ namespace CSH_seminarski_rad_Danijel_Krpes
                 operators.Add(inputParameters[i]);
             }
 
-            for(int i = 0; i < values.Count; i++)
-            {
-                switch (measuringUnits.ElementAt(i))
-                {
-                    case "km":
-                        values[i] *= 1000;
-                        break;
-                    case "m":
-                        meters = values.ElementAt(i);
-                        break;
-                    case "cm":
-                        meters = values.ElementAt(i) / 100;
-                        break;
-                    case "mm":
-                        meters = values.ElementAt(i) / 1000;
-                        break;
-                }
-                    
+            result += ToMeters(measuringUnits.ElementAt(0), values.ElementAt(0));
 
+            for (int i = 1; i < values.Count; i++)
+            {
+                if (operators.ElementAt(i-1) == "+")
+                {
+                    result += ToMeters(measuringUnits.ElementAt(i), values.ElementAt(i));
+                }
+                else
+                {
+                    result -= ToMeters(measuringUnits.ElementAt(i), values.ElementAt(i));
+                }
             }
 
+            switch (MeasuringUnits.SelectedIndex)
+            {
+                case 0:
+                    result /= 1000;
+                    ResultTextbox.Text = result.ToString() + " km";
+                    break;
+                case 1:
+                    ResultTextbox.Text = result.ToString() + " m";
+                    break;
+                case 2:
+                    result *= 100;
+                    ResultTextbox.Text = result.ToString() + " cm";
+                    break;
+                case 3:
+                    result *= 1000;
+                    ResultTextbox.Text = result.ToString() + " mm";
+                    break;
+            }
+        }
+
+        private double ToMeters(string unit, double value)
+        {
+            switch (unit)
+            {
+                case "km":
+                    value *= 1000;
+                    break;
+                case "m":
+                    break;
+                case "cm":
+                    value /= 100;
+                    break;
+                case "mm":
+                    value /= 1000;
+                    break;
+            }
+
+            return value;
         }
     }
 }
 
 
-// 14 km + 79 m - 5 mm
+// 14 km + 79 m - 5 mm + 10 m
+//values: 14 79 5
 /*0  14  
  *1  km
  *2  +
