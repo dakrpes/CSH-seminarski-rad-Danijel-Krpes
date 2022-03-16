@@ -48,54 +48,68 @@ namespace CSH_seminarski_rad_Danijel_Krpes
             List<double> values = new();
             List<string> measuringUnits = new();
             List<string> operators = new();
-            double result = 0;
+            double? result = 0;
 
-            for (int i = 0; i < inputParameters.Length; i += 3)
+            try
             {
-                values.Add(double.Parse(inputParameters[i]));
-            }
-
-            for (int i = 1; i < inputParameters.Length; i += 3)
-            {
-                measuringUnits.Add(inputParameters[i]);
-            }
-
-            for (int i = 2; i < inputParameters.Length; i += 3)
-            {
-                operators.Add(inputParameters[i]);
-            }
-
-            result += ToMeters(measuringUnits.ElementAt(0), values.ElementAt(0));
-
-            for (int i = 1; i < values.Count; i++)
-            {
-                if (operators.ElementAt(i-1) == "+")
+                for (int i = 0; i < inputParameters.Length; i += 3)
                 {
-                    result += ToMeters(measuringUnits.ElementAt(i), values.ElementAt(i));
+                    values.Add(double.Parse(inputParameters[i]));
                 }
-                else
+
+                for (int i = 1; i < inputParameters.Length; i += 3)
                 {
-                    result -= ToMeters(measuringUnits.ElementAt(i), values.ElementAt(i));
+                    measuringUnits.Add(inputParameters[i]);
+                }
+
+                for (int i = 2; i < inputParameters.Length; i += 3)
+                {
+                    operators.Add(inputParameters[i]);
+                }
+
+                result += ToMeters(measuringUnits.ElementAt(0), values.ElementAt(0));
+
+
+
+                for (int i = 1; i < values.Count; i++)
+                {
+                    if (operators.ElementAt(i - 1).Count() > 1)
+                        throw new ArgumentException();
+
+                    if (operators.ElementAt(i - 1).Equals("+"))
+                    {
+                        result += ToMeters(measuringUnits.ElementAt(i), values.ElementAt(i));
+                    }
+                    else
+                    {
+                        result -= ToMeters(measuringUnits.ElementAt(i), values.ElementAt(i));
+                    }
+                }
+
+                switch (MeasuringUnits.SelectedIndex)
+                {
+                    case 0:
+                        result /= 1000;
+                        ResultTextbox.Text = result.ToString() + " km";
+                        break;
+                    case 1:
+                        ResultTextbox.Text = result.ToString() + " m";
+                        break;
+                    case 2:
+                        result *= 100;
+                        ResultTextbox.Text = result.ToString() + " cm";
+                        break;
+                    case 3:
+                        result *= 1000;
+                        ResultTextbox.Text = result.ToString() + " mm";
+                        break;
                 }
             }
-
-            switch (MeasuringUnits.SelectedIndex)
+            catch
             {
-                case 0:
-                    result /= 1000;
-                    ResultTextbox.Text = result.ToString() + " km";
-                    break;
-                case 1:
-                    ResultTextbox.Text = result.ToString() + " m";
-                    break;
-                case 2:
-                    result *= 100;
-                    ResultTextbox.Text = result.ToString() + " cm";
-                    break;
-                case 3:
-                    result *= 1000;
-                    ResultTextbox.Text = result.ToString() + " mm";
-                    break;
+                InputTextbox.Text = "Invalid input. Clear inputs and please try again.";
+                ResultTextbox.Text = "Error.";
+                result = null;
             }
         }
 
@@ -115,21 +129,7 @@ namespace CSH_seminarski_rad_Danijel_Krpes
                     value /= 1000;
                     break;
             }
-
             return value;
         }
     }
 }
-
-
-// 14 km + 79 m - 5 mm + 10 m
-//values: 14 79 5
-/*0  14  
- *1  km
- *2  +
- *3  79
- *4  m
- *5  -
- *6  5
- *7  mm
- */
